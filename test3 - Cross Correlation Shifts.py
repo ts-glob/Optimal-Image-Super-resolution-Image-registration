@@ -27,7 +27,6 @@ for i in range(1, len(files)-1):
     offset_image = rgb2gray(io.imread(join(pathIn,files[i])))
     xoff, yoff = cross_correlation_shifts(ref_image, offset_image)
     corrected_image = shift(offset_image, shift = (-yoff, -xoff), mode = 'constant')
-    if not os.path.exists(pathOut): os.makedirs(pathOut)
     io.imsave(pathOut+files[i], corrected_image)
     sko_arr[i-1] = np.sum((corrected_image.astype("float") - ref_image.astype("float")) ** 2) 
     sko_arr[i-1] /= float(ref_image.shape[0] * ref_image.shape[1])

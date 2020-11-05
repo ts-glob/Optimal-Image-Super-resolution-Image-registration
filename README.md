@@ -32,7 +32,7 @@
 Примерный план работ по теории:  
 - [ ] Освежить в памяти теорию цифровой обработки сигналов - открыть [это](http://repo.ssau.ru/handle/Uchebnye-posobiya/Teoriya-cifrovoi-obrabotki-signalov-i-izobrazhenii-Elektronnyi-resurs-ucheb-po-specialnosti-Inform-bezopasnost-avtomatizir-sistem-54688) на разделах про обработку случайных сигналах, связи непрерывного и дискретного спектров, винеровской фильтрации
 - [ ] Разобраться в препринте статьи по оптимальному сверхразрешающему восстановлению *(на данный момент не очень приоритетно)*  
-- [ ] Разобраться в алгоритме комплексирования - открыть [это](repo.ssau.ru/handle/Informacionnye-tehnologii-i-nanotehnologii/Optimalnoe-kompleksirovanie-izobrazhenii-videoposledovatelnosti-85239)  
+- [ ] Разобраться в алгоритме комплексирования - открыть [это](http://repo.ssau.ru/handle/Informacionnye-tehnologii-i-nanotehnologii/Optimalnoe-kompleksirovanie-izobrazhenii-videoposledovatelnosti-85239)  
 
 Примерный план работ на ближайшее время:  
 - [ ] Создать тестовый набор для экспериментального исследования,

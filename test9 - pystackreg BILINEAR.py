@@ -16,7 +16,7 @@ from os.path import isfile, join
 
 total_time = time.time()
 pathIn = "Test Sequence"                                                      #откуда брать файлы
-pathOut = "Test Sequence Out/test5-9 - pystackreg/5. BILINEAR/"           #куда сохранять файлы
+pathOut = "Test Sequence Out/test5-9 - pystackreg/5. BILINEAR/"               #куда сохранять файлы
 files = [f for f in listdir(pathIn) if isfile(join(pathIn, f))]               #сами картинки
 if not os.path.exists(pathOut): os.makedirs(pathOut)                          #создать путь, если ещё нет
 ref_image = img_as_ubyte(rgb2gray(io.imread(join(pathIn, files[0]))))         #задаём эталон

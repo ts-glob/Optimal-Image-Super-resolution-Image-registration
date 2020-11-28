@@ -17,13 +17,13 @@ from tqdm import tqdm
 from numpy.fft import fft2, ifft2
 from scipy.signal import gaussian
 
-pathIn1 = "ПОЛНЫЙ ЦИКЛ/1. искажения/1. decimate/"
-pathIn2 = "ПОЛНЫЙ ЦИКЛ/1. искажения/2. transient intermodulation/"
-pathIn3 = "ПОЛНЫЙ ЦИКЛ/1. искажения/3. additive white Gaussian noise/"
+pathIn1 = "ПОЛНЫЙ АЛГОРИТМ/1. искажения/1. decimate/"
+pathIn2 = "ПОЛНЫЙ АЛГОРИТМ/1. искажения/2. transient intermodulation/"
+pathIn3 = "ПОЛНЫЙ АЛГОРИТМ/1. искажения/3. additive white Gaussian noise/"
 
-pathOut1 = "ПОЛНЫЙ ЦИКЛ/2. восстановления/1. decimate/"                         # куда сохранять файлы
-pathOut2 = "ПОЛНЫЙ ЦИКЛ/2. восстановления/2. transient intermodulation/"        # куда сохранять файлы
-pathOut3 = "ПОЛНЫЙ ЦИКЛ/2. восстановления/3. additive white Gaussian noise/"    # куда сохранять файлы
+pathOut1 = "ПОЛНЫЙ АЛГОРИТМ/2. восстановления/1. decimate/"                         # куда сохранять файлы
+pathOut2 = "ПОЛНЫЙ АЛГОРИТМ/2. восстановления/2. transient intermodulation/"        # куда сохранять файлы
+pathOut3 = "ПОЛНЫЙ АЛГОРИТМ/2. восстановления/3. additive white Gaussian noise/"    # куда сохранять файлы
 files1 = [f for f in listdir(pathIn1) if isfile(join(pathIn1, f))]               # сами картинки
 files2 = [f for f in listdir(pathIn2) if isfile(join(pathIn2, f))]               # сами картинки
 files3 = [f for f in listdir(pathIn3) if isfile(join(pathIn3, f))]               # сами картинки

@@ -15,12 +15,12 @@ from os import listdir
 from os.path import isfile, join
 from tqdm import tqdm
 
-pathIn1 = "ПОЛНЫЙ ЦИКЛ/3. согласования/1. decimate/"
-pathIn2 = "ПОЛНЫЙ ЦИКЛ/3. согласования/2. transient intermodulation/"
-pathIn3 = "ПОЛНЫЙ ЦИКЛ/3. согласования/3. additive white Gaussian noise/"
-pathOut1 = "ПОЛНЫЙ ЦИКЛ/4. комплексирование изображений/1. decimate/"
-pathOut2 = "ПОЛНЫЙ ЦИКЛ/4. комплексирование изображений/2. transient intermodulation/"
-pathOut3 = "ПОЛНЫЙ ЦИКЛ/4. комплексирование изображений/3. additive white Gaussian noise/"
+pathIn1 = "ПОЛНЫЙ АЛГОРИТМ/3. согласования/1. decimate/"
+pathIn2 = "ПОЛНЫЙ АЛГОРИТМ/3. согласования/2. transient intermodulation/"
+pathIn3 = "ПОЛНЫЙ АЛГОРИТМ/3. согласования/3. additive white Gaussian noise/"
+pathOut1 = "ПОЛНЫЙ АЛГОРИТМ/4. комплексирование изображений/1. decimate/"
+pathOut2 = "ПОЛНЫЙ АЛГОРИТМ/4. комплексирование изображений/2. transient intermodulation/"
+pathOut3 = "ПОЛНЫЙ АЛГОРИТМ/4. комплексирование изображений/3. additive white Gaussian noise/"
 files1 = [f for f in listdir(pathIn1) if isfile(join(pathIn1, f))] # сами картинки
 # files2 = [f for f in listdir(pathIn2) if isfile(join(pathIn2, f))]
 files3 = [f for f in listdir(pathIn3) if isfile(join(pathIn3, f))]

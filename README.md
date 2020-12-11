@@ -1,3 +1,9 @@
+fix: 
+	1. реализовать динамические искажения (ака свёртку с гауссианой(???));
+	2. объединить все искажения в одно;
+	3. реализовать фильтр винера (как в skimage - https://scikit-image.org/docs/dev/api/skimage.restoration.html#skimage.restoration.unsupervised_wiener)
+end/ запилить отчёт, даже если что то не получится.
+
 # Optimal Image Super-resolution 
 
 НИР **"Оптимальное сверхразрешение изображений"**

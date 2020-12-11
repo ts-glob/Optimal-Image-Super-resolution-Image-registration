@@ -26,8 +26,8 @@ files3 = [f for f in listdir(pathIn3) if isfile(join(pathIn3, f))]
 # создать путь, если ещё нет
 if not os.path.exists(pathOut1): os.makedirs(pathOut1)            
 if not os.path.exists(pathOut2): os.makedirs(pathOut2)           
-if not os.path.exists(pathOut3): os.makedirs(pathOut3) 
-
+if not os.path.exists(pathOut3): os.makedirs(pathOut3)  
+    
 # случай 1
 for i in tqdm(range(0, len(files1)), desc="Увеличение размерности [децимация]: "):
     original_img = img_as_ubyte(rgb2gray(io.imread(join(pathIn1, files1[i]))))

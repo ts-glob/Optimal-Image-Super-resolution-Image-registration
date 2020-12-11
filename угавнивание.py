@@ -28,19 +28,19 @@ if not os.path.exists(pathOut1): os.makedirs(pathOut1)                          
 if not os.path.exists(pathOut2): os.makedirs(pathOut2) 
 if not os.path.exists(pathOut3): os.makedirs(pathOut3) 
 
-# for i in tqdm(range(0, len(files1)), desc="Децимация: "):
-#     img = img_as_ubyte(rgb2gray(io.imread(join(pathIn, files1[i]))))
-#     dec_img = img[::2, ::2]
-#     dec_img = img_as_ubyte((dec_img - np.min(dec_img)) / (np.max(dec_img) - np.min(dec_img)))
-#     io.imsave(pathOut1+files1[i], dec_img)
-    
-for i in tqdm(range(0, len(files1)), desc="Децимация 2 вариант: "):
-    img = img_as_ubyte(io.imread(join(pathIn, files1[i])))
-    img = rgb2gray(img)
-    dec_img = decimate(img, 2, axis=1)
-    dec_img = decimate(dec_img, 2, axis=0)
+for i in tqdm(range(0, len(files1)), desc="Децимация: "):
+    img = img_as_ubyte(rgb2gray(io.imread(join(pathIn, files1[i]))))
+    dec_img = img[::2, ::2]
     dec_img = img_as_ubyte((dec_img - np.min(dec_img)) / (np.max(dec_img) - np.min(dec_img)))
     io.imsave(pathOut1+files1[i], dec_img)
+    
+# for i in tqdm(range(0, len(files1)), desc="Децимация 2 вариант: "):
+    # img = img_as_ubyte(io.imread(join(pathIn, files1[i])))
+    # img = rgb2gray(img)
+    # dec_img = decimate(img, 2, axis=1)
+    # dec_img = decimate(dec_img, 2, axis=0)
+    # dec_img = img_as_ubyte((dec_img - np.min(dec_img)) / (np.max(dec_img) - np.min(dec_img)))
+    # io.imsave(pathOut1+files1[i], dec_img)
     
 for i in tqdm(range(0, len(files2)), desc="Динамические искажения: Не реализовано"):
     time.sleep(0.02)

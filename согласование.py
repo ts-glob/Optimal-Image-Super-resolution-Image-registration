@@ -15,9 +15,9 @@ import os
 from os import listdir
 from os.path import isfile, join
 
-pathIn1 = "ПОЛНЫЙ АЛГОРИТМ/2. восстановления/1. decimate/"
-pathIn2 = "ПОЛНЫЙ АЛГОРИТМ/2. восстановления/2. transient intermodulation/"
-pathIn3 = "ПОЛНЫЙ АЛГОРИТМ/2. восстановления/3. additive white Gaussian noise/"
+pathIn1 = "ПОЛНЫЙ АЛГОРИТМ/2.1. увеличение размерности/1. decimate/"
+pathIn2 = "ПОЛНЫЙ АЛГОРИТМ/2.1. увеличение размерности/2. transient intermodulation/"
+pathIn3 = "ПОЛНЫЙ АЛГОРИТМ/2.1. увеличение размерности/3. additive white Gaussian noise/"
 pathOut1 = "ПОЛНЫЙ АЛГОРИТМ/3. согласования/1. decimate/"
 pathOut2 = "ПОЛНЫЙ АЛГОРИТМ/3. согласования/2. transient intermodulation/"
 pathOut3 = "ПОЛНЫЙ АЛГОРИТМ/3. согласования/3. additive white Gaussian noise/"

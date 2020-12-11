@@ -1,0 +1,3 @@
+Децимация - https://stackoverflow.com/questions/18666014/downsample-array-in-python
+Фильтр - https://stackoverflow.com/questions/53883717/applying-wiener-filter-to-remove-noise-using-python
+много фильтров - https://scikit-image.org/docs/dev/api/skimage.filters.html

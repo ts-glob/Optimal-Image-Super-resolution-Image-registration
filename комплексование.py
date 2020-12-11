@@ -29,30 +29,15 @@ if not os.path.exists(pathOut1): os.makedirs(pathOut1)
 if not os.path.exists(pathOut2): os.makedirs(pathOut2)           
 if not os.path.exists(pathOut3): os.makedirs(pathOut3) 
 
-# для формул
-D_trans1 = [None] * (len(files1))
-D_trans1[0] = 0
-# D_trans2 = [None] * (len(files2))
-# D_trans2[0] = 0
-D_trans3 = [None] * (len(files3))
-D_trans3[0] = 0
-
-
 # случай 1
-# изменение размера картинок
-resized_img = []
-for i in tqdm(range(0, len(files1)), desc="Увеличение размерности [децимация]: "):
-    original_img = img_as_ubyte(rgb2gray(io.imread(join(pathIn1, files1[i]))))
-    D_trans1[i] = np.var(original_img)
-    epxanded_img = cv2.resize(original_img, (5000, 5000))
-    resized_img.append(epxanded_img)  
-    
-# комплексование
+# комплексирование
 a = 0
 b = 0 
 for i in tqdm(range(1, len(files1)), desc="Комплексирование [децимация]: "):
-    a += resized_img[i]/D_trans1[i]
-    b += 1/D_trans1[i]
+    img = img_as_ubyte(rgb2gray(io.imread(join(pathIn1, files1[i]))))
+    D_trans = np.var(img)
+    a += img/D_trans
+    b += 1/D_trans
 print('Сохранение файла...')
 c = a/b
 c = img_as_ubyte((c - np.min(c)) / (np.max(c) - np.min(c)))
@@ -60,20 +45,14 @@ io.imsave(pathOut1 + "_final_result1.png", c)
 
 
 # # случай 2
-# # изменение размера картинок
-# resized_img = []
-# for i in tqdm(range(0, len(files2)-1), desc="Увеличение размерности [динамические искажения]: "):
-#     original_img = img_as_ubyte(rgb2gray(io.imread(join(pathIn2, files2[i]))))
-#     D_trans2[i] = np.var(original_img)
-#     epxanded_img = cv2.resize(original_img, (1000, 1000))
-#     resized_img.append(epxanded_img)  
-    
-# # комплексование
+# # комплексирование
 # a = 0
 # b = 0 
 # for i in tqdm(range(1, len(files1)), desc="Комплексирование [динамические искажения]: "):
-#     a += resized_img[i]/D_trans2[i]
-#     b += 1/D_trans2[i]
+#     img = img_as_ubyte(rgb2gray(io.imread(join(pathIn2, files2[i]))))
+#     D_trans = np.var(img)
+#     a += img/D_trans
+#     b += 1/D_trans
 # print('Сохранение файла...')
 # c = a/b
 # c = img_as_ubyte((c - np.min(c)) / (np.max(c) - np.min(c)))
@@ -81,20 +60,14 @@ io.imsave(pathOut1 + "_final_result1.png", c)
 
 
 # случай 3
-# изменение размера картинок
-resized_img = []
-for i in tqdm(range(0, len(files3)), desc="Увеличение размерности [аддитивный шум]: "):
-    original_img = img_as_ubyte(rgb2gray(io.imread(join(pathIn3, files3[i]))))
-    D_trans3[i] = np.var(original_img)
-    epxanded_img = cv2.resize(original_img, (5000, 5000))
-    resized_img.append(epxanded_img)  
-
-# комплексование
+# комплексирование
 a = 0
 b = 0 
 for i in tqdm(range(1, len(files1)), desc="Комплексирование [аддитивный шум]: "):
-    a += resized_img[i]/D_trans3[i]
-    b += 1/D_trans3[i]
+    img = img_as_ubyte(rgb2gray(io.imread(join(pathIn3, files3[i]))))
+    D_trans = np.var(img)
+    a += img/D_trans
+    b += 1/D_trans
 print('Сохранение файла...')
 c = a/b
 c = img_as_ubyte((c - np.min(c)) / (np.max(c) - np.min(c)))

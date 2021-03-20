@@ -68,11 +68,12 @@ def g(Gs):
     fx = np.zeros(N * L)
     step = omegas[1] - omegas[0]
     for k in range(omegas.shape[0]):
-        fx[k] = Gs[k] * exp(omegas[k] * _T)
+        fx[k] = Gs[k] * exp(omegas[k] * _T * (k - omegas.shape[0] / 2))
     for k in range(Gs.shape[0] - 1):
         gs[k + 1] = gs[k] + ((fx[k] + fx[k + 1]) * step) / 2  # TODO
     gs = gs * (_T / (2 * pi))
     for k in range(gs.shape[0]):
+        # print(locale.format("%.8f", k - omegas.shape[0] / 2))
         print(locale.format("%.8f", gs[k]))
     return gs
 

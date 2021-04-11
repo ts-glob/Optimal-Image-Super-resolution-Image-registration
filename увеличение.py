@@ -15,12 +15,13 @@ from skimage import img_as_ubyte
 from skimage.color import rgb2gray
 
 
-pathIn = "ПОЛНЫЙ АЛГОРИТМ/2. восстановления/"
-pathOut = "ПОЛНЫЙ АЛГОРИТМ/3. увеличение размерности/"
-files = [f for f in listdir(pathIn) if isfile(join(pathIn, f))]
-if not os.path.exists(pathOut): os.makedirs(pathOut)  
-    
-for i in tqdm(range(0, len(files)), desc="Увеличение размерности: "):
-    original_img = img_as_ubyte(rgb2gray(io.imread(join(pathIn, files[i]))))
-    epxanded_img = cv2.resize(original_img, (700, 700))
-    io.imsave(pathOut + files[i], epxanded_img)
+def expansion():
+    pathIn = "ПОЛНЫЙ АЛГОРИТМ/2. восстановления/"
+    pathOut = "ПОЛНЫЙ АЛГОРИТМ/3. увеличение размерности/"
+    files = [f for f in listdir(pathIn) if isfile(join(pathIn, f))]
+    if not os.path.exists(pathOut): os.makedirs(pathOut)
+
+    for i in tqdm(range(0, len(files)), desc="Увеличение размерности: "):
+        original_img = img_as_ubyte(rgb2gray(io.imread(join(pathIn, files[i]))))
+        expanded_img = cv2.resize(original_img, (700, 700))
+        io.imsave(pathOut + files[i], expanded_img)

@@ -16,6 +16,7 @@ def stream():
         video_label.after(delay, lambda: stream())
     except:
         print("Файл не найден")
+        # todo
         video.close()
         return
 

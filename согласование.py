@@ -32,3 +32,17 @@ def registration():
         corrected_image = img_as_ubyte(
             (corrected_image - np.min(corrected_image)) / (np.max(corrected_image) - np.min(corrected_image)))
         io.imsave(pathOut + files[i], corrected_image)
+
+
+def registration_gui(files):
+    result_array = []
+    ref_image = img_as_ubyte(rgb2gray(files[0]))  # задаём эталон
+    result_array.append(ref_image)  # сохранить первый файл
+    for i in tqdm(range(1, len(files)), desc="Согласование: "):
+        offset_image = img_as_ubyte(rgb2gray(files[i]))
+        reg_instance = StackReg(StackReg.BILINEAR)
+        corrected_image = reg_instance.register_transform(ref_image, offset_image)
+        corrected_image = img_as_ubyte(
+            (corrected_image - np.min(corrected_image)) / (np.max(corrected_image) - np.min(corrected_image)))
+        result_array.append(corrected_image)
+    return result_array

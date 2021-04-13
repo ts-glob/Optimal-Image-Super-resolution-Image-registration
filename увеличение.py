@@ -25,3 +25,14 @@ def expansion():
         original_img = img_as_ubyte(rgb2gray(io.imread(join(pathIn, files[i]))))
         expanded_img = cv2.resize(original_img, (700, 700))
         io.imsave(pathOut + files[i], expanded_img)
+
+
+def expansion_gui(files):
+    result_array = []
+    for i in tqdm(range(0, len(files)), desc="Увеличение размерности: "):
+        original_img = img_as_ubyte(rgb2gray(files[i]))
+        rows = len(original_img)
+        columns = len(original_img[0])
+        expanded_img = cv2.resize(original_img, (columns*2, rows*2))
+        result_array.append(expanded_img)
+    return result_array

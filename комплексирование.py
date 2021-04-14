@@ -33,19 +33,24 @@ def restoration():
     io.imsave(pathOut + "_final_result.png", c)
 
 
-def restoration_gui(files):
-        pathOut = "temp/"
-        if not os.path.exists(pathOut):
-            os.makedirs(pathOut)
-        a = 0
-        b = 0
-        for i in tqdm(range(1, len(files)), desc="Комплексирование: "):
-            img = img_as_ubyte(rgb2gray(files[i]))
-            D_trans = np.var(img)
-            a += img / D_trans
-            b += 1 / D_trans
-        print('Сохранение файла...')
-        c = a / b
-        c = img_as_ubyte((c - np.min(c)) / (np.max(c) - np.min(c)))
-        io.imsave(pathOut + "_final_result.png", c)
-        print('Файл сохранен в ' + pathOut + "_final_result.png")
+def restoration_gui(files, progress_bar, progress_label, root):
+    progress_step = 100 / (len(files)-1)
+    progress_bar['value'] = 0
+    progress_label.config(text="0")
+    root.update_idletasks()
+    a = 0
+    b = 0
+    for i in tqdm(range(1, len(files)), desc="Комплексирование: "):
+        img = img_as_ubyte(rgb2gray(files[i]))
+        D_trans = np.var(img)
+        a += img / D_trans
+        b += 1 / D_trans
+        progress_bar['value'] += progress_step
+        progress_label.config(text=round(progress_bar['value']))
+        root.update_idletasks()
+    c = a / b
+    c = img_as_ubyte((c - np.min(c)) / (np.max(c) - np.min(c)))
+    progress_bar['value'] = 100
+    progress_label.config(text=progress_bar['value'])
+    root.update_idletasks()
+    return c

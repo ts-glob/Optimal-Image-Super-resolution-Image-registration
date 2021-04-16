@@ -34,13 +34,13 @@ def restoration():
 
 
 def restoration_gui(files, progress_bar, progress_label, root):
-    progress_step = 100 / (len(files)-1)
+    progress_step = 100 / (len(files))
     progress_bar['value'] = 0
     progress_label.config(text="0")
     root.update_idletasks()
     a = 0
     b = 0
-    for i in tqdm(range(1, len(files)), desc="Комплексирование: "):
+    for i in tqdm(range(0, len(files)), desc="Комплексирование: "):
         img = img_as_ubyte(rgb2gray(files[i]))
         D_trans = np.var(img)
         a += img / D_trans

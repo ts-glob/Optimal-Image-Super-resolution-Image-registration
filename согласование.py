@@ -5,6 +5,7 @@ Created on Tue Oct 13 18:10:49 2020
 @author: tsoyg
 """
 
+import cv2
 import os
 from os import listdir
 from os.path import isfile, join
@@ -35,7 +36,7 @@ def registration():
 
 
 def registration_gui(files, progress_bar, progress_label, root):
-    progress_step = 100 / (len(files)-1)
+    progress_step = 100 / (len(files))
     progress_bar['value'] = 0
     progress_label.config(text="0")
     root.update_idletasks()
@@ -44,7 +45,7 @@ def registration_gui(files, progress_bar, progress_label, root):
     result_array.append(ref_image)  # сохранить первый файл
     for i in tqdm(range(1, len(files)), desc="Согласование: "):
         offset_image = img_as_ubyte(rgb2gray(files[i]))
-        reg_instance = StackReg(StackReg.BILINEAR)
+        reg_instance = StackReg(StackReg.AFFINE)
         corrected_image = reg_instance.register_transform(ref_image, offset_image)
         corrected_image = img_as_ubyte(
             (corrected_image - np.min(corrected_image)) / (np.max(corrected_image) - np.min(corrected_image)))

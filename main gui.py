@@ -2,8 +2,11 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
 from PIL import Image, ImageTk
-from skimage import io
+from skimage import io, img_as_ubyte
 from os import listdir
+
+from skimage.color import rgb2gray
+from win32api import GetSystemMetrics
 import os
 import imageio
 import восстановление
@@ -14,21 +17,35 @@ import комплексирование
 
 def stream():
     try:
+        # видео
         try:
             delay = int(1000 / video.get_meta_data()['fps'])
             image = video.get_next_data()
-            frame_image = Image.fromarray(image)
+            if int(len(image[0])) > 300:
+                axe_y = 300
+                axe_x = int(len(image[0]) / (len(image) / 300))
+            else:
+                axe_y = int(len(image) / (len(image[0]) / 560))
+                axe_x = 560
+            frame_image = Image.fromarray(image).resize((axe_x, axe_y), Image.ANTIALIAS)
             frame_image = ImageTk.PhotoImage(frame_image)
-            video_label.config(image=frame_image)
-            video_label.image = frame_image
-            video_label.after(delay, lambda: stream())
+            media_label.config(image=frame_image)
+            media_label.image = frame_image
+            media_label.after(delay, lambda: stream())
+        # фото
         except:
             image = video.get_next_data()
-            frame_image = Image.fromarray(image)
+            if int(len(image[0])) > 300:
+                axe_y = 300
+                axe_x = int(len(image[0]) / (len(image) / 300))
+            else:
+                axe_y = int(len(image) / (len(image[0]) / 560))
+                axe_x = 560
+            frame_image = Image.fromarray(image).resize((axe_x, axe_y), Image.ANTIALIAS)
             frame_image = ImageTk.PhotoImage(frame_image)
-            video_label.config(image=frame_image)
-            video_label.image = frame_image
-            video_label.after(1, lambda: stream())
+            media_label.config(image=frame_image)
+            media_label.image = frame_image
+            media_label.after(1, lambda: stream())
     except:
         print("Видео закончилось")
         video.close()
@@ -36,17 +53,41 @@ def stream():
 
 
 def btn_search_click():
-    global video_label
+    global media_label
     global video
     root.filename = filedialog.askopenfilename(initialdir="Test Video/", title='Выберите видео файл',
-                                               filetypes=(("Видео файлы", "*.mp4 .wmv .gif"), ("Все файлы", "*.*")))
+                                               filetypes=(("Видео файлы", "*.mp4 .wmv .avi .gif"),
+                                                          ("Все файлы", "*.*")))
     field1.delete(0, END)
     field1.insert(0, root.filename)
     if field1.get() != "":
-        video_label.destroy()
+        media_label.destroy()
         video_name = field1.get()
-        video_label = Label(frame_media)
-        video_label.pack()
+        media_label = Label(frame_media)
+        media_label.pack()
+        try:
+            progress_label_stage.pack_forget()
+            video = imageio.get_reader(video_name)
+            stream()
+        except:
+            progress_label_stage.pack(pady=10, expand=1, anchor=S)
+            progress_label_stage['text'] = "Файл не найден или формат файла не поддерживается"
+            root.update_idletasks()
+            print("Файл не найден или формат файла не поддерживается")
+
+
+def btn_search_click2():
+    global media_label
+    global video
+    root.filename = filedialog.askopenfilename(initialdir="Test Video/", title='Выберите видео файл',
+                                               filetypes=(("Изображения", "*.jpg .png"), ("Все файлы", "*.*")))
+    field2.delete(0, END)
+    field2.insert(0, root.filename)
+    if field2.get() != "":
+        media_label.destroy()
+        video_name = field2.get()
+        media_label = Label(frame_media)
+        media_label.pack()
         try:
             progress_label_stage.pack_forget()
             video = imageio.get_reader(video_name)
@@ -68,9 +109,13 @@ def image_sequence():
 
 
 def btn_style_click():
-    MAIN_BG = '#003e85'
-    MEDIA_BG = '#e8279a'
-    MENU_BG = '#2a1d17'
+    MAIN_BG = '#2196f3'
+    MEDIA_BG = '#353334'
+    MENU_BG = '#ffffff'
+    if style.get() == "стандарт":
+        MAIN_BG = '#2196f3'
+        MEDIA_BG = '#353334'
+        MENU_BG = '#ffffff'
     if style.get() == "орео":
         MAIN_BG = '#003e85'
         MEDIA_BG = '#e8279a'
@@ -80,25 +125,47 @@ def btn_style_click():
         MEDIA_BG = '#c8d94f'
         MENU_BG = '#be7532'
     if style.get() == "росбанк":
-        MAIN_BG = '#282828'
-        MEDIA_BG = '#b21020'
+        MAIN_BG = '#f6183e'
+        MEDIA_BG = '#000000'
         MENU_BG = '#ffffff'
     if style.get() == "джилл валентайн":
-        MAIN_BG = '#1a3f80'
-        MEDIA_BG = '#140d0f'
+        MAIN_BG = '#19140d'
+        MEDIA_BG = '#1a3f80'
         MENU_BG = '#fefefe'
-
+    if style.get() == "гендальф белый":
+        MAIN_BG = '#ebece9'
+        MEDIA_BG = '#eeffff'
+        MENU_BG = '#e0c06f'
+    if style.get() == "XÆA-12":
+        MAIN_BG = '#05fcff'
+        MEDIA_BG = '#941f7f'
+        MENU_BG = '#c0df32'
+    if style.get() == "антихрист-суперзвезда":
+        MAIN_BG = '#565656'
+        MEDIA_BG = '#030303'
+        MENU_BG = '#e8e8e8'
+    if style.get() == "андроид 5.0":
+        MAIN_BG = '#006579'
+        MEDIA_BG = '#001c27'
+        MENU_BG = '#a7e623'
+    if style.get() == "дискотека()":
+        import randomcolor
+        rand_color = randomcolor.RandomColor()
+        MAIN_BG = rand_color.generate()[0]
+        MEDIA_BG = rand_color.generate()[0]
+        MENU_BG = rand_color.generate()[0]
     root['bg'] = MAIN_BG
-    frame_menu['bg'] = MENU_BG
+    frame_menu1['bg'] = MENU_BG
+    frame_menu2['bg'] = MENU_BG
     frame_media['bg'] = MEDIA_BG
 
 
 def btn_process_click():
-    global video_label
+    global media_label
     global video
     if field1.get() != "":
         video_name = field1.get()
-        video_label.pack_forget()
+        media_label.pack_forget()
         try:
             progress_label_stage['text'] = ""
             progress_label_stage.pack_forget()
@@ -142,26 +209,29 @@ def btn_process_click():
 
 
 root = Tk()
+root.resizable(0, 0)
+root.geometry('800x600+' + str(int(GetSystemMetrics(0) / 2) - 400) + '+' + str(int(GetSystemMetrics(1) / 2) - 300))
 root.iconbitmap('test.ico')
 root.title('Сверх-разрешение')
-root.geometry('800x600')
-root['bg'] = '#003e85'
-bg_media = '#e8279a'
-bg_menu = '#2a1d17'
+root['bg'] = '#2196f3'
+bg_media = '#353334'
+bg_menu = '#ffffff'
 
-canvas = Canvas(root, height=300, width=300)
-var = canvas.pack
-
-frame_menu = Frame(root, bg=bg_menu)
+frame_menu1 = Frame(root, bg=bg_menu)
+frame_menu2 = Frame(root, bg=bg_menu)
 frame_media = Frame(root, bg=bg_media)
-frame_menu.place(relx=0.15, rely=0.15, relwidth=0.7, relheight=0.7)
-frame_media.place(relx=0.15, rely=0.30, relwidth=0.7, relheight=0.55)
+frame_menu1.place(relx=0.15, rely=0.15, relwidth=0.7, relheight=0.1)
+frame_menu2.place(relx=0.15, rely=0.25, relwidth=0.7, relheight=0.1)
+frame_media.place(relx=0.15, rely=0.35, relwidth=0.7, relheight=0.5)
 
-title = Label(frame_menu, text='Выберите видео файл')
-field1 = Entry(frame_menu, width=50)
-btn_search = Button(frame_menu, text='Обзор', command=btn_search_click)
+title1 = Label(frame_menu1, text='Выберите видео файл')
+field1 = Entry(frame_menu1, width=50)
+btn_search1 = Button(frame_menu1, text='Обзор', command=btn_search_click)
+title2 = Label(frame_menu2, text='      Выберите фото      ')
+field2 = Entry(frame_menu2, width=50)
+btn_search2 = Button(frame_menu2, text='Обзор',  command=btn_search_click2)
 btn_process = Button(frame_media, text='ПРИМЕНИТЬ СВЕРХРАЗРЕШЕНИЕ', command=btn_process_click)
-video_label = Label(frame_media)
+media_label = Label(frame_media)
 progress_bar = ttk.Progressbar(frame_media, orient=HORIZONTAL, length=300, mode='determinate')
 progress_label = Label(frame_media, text="")
 progress_label_stage = Label(frame_media, text="")
@@ -169,11 +239,15 @@ btn_apply_style = Button(root, text='Применить', command=btn_style_clic
 
 style = StringVar()
 style.set("Оформление")
-styles_drop_down = OptionMenu(root, style, "орео", "шрек", "росбанк", "джилл валентайн")
+styles_drop_down = OptionMenu(root, style, "стандарт", "орео", "шрек", "росбанк", "джилл валентайн", "гендальф белый",
+                              "XÆA-12", "антихрист-суперзвезда", "андроид 5.0", "дискотека()")
 
-title.pack(side=LEFT, padx=10, pady=30, anchor=NE)
-field1.pack(side=LEFT, padx=10, pady=30, anchor=NE)
-btn_search.pack(side=LEFT, padx=10, pady=30, anchor=NE)
+title1.pack(side=LEFT, padx=10, pady=15, anchor=NE)
+field1.pack(side=LEFT, padx=10, pady=15, anchor=NE)
+btn_search1.pack(side=LEFT, padx=10, pady=15, anchor=NE)
+title2.pack(side=LEFT, padx=10, pady=15, anchor=NE)
+field2.pack(side=LEFT, padx=10, pady=15, anchor=NE)
+btn_search2.pack(side=LEFT, padx=10, pady=15, anchor=NE)
 btn_process.pack(pady=15, side=BOTTOM)
 btn_apply_style.pack(side=RIGHT, anchor=N)
 styles_drop_down.pack(side=RIGHT, anchor=N)

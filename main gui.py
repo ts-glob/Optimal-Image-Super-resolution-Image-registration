@@ -2,11 +2,10 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
 from PIL import Image, ImageTk
-from skimage import io, img_as_ubyte
+from skimage import io
 from os import listdir
-
-from skimage.color import rgb2gray
 from win32api import GetSystemMetrics
+
 import os
 import imageio
 import восстановление

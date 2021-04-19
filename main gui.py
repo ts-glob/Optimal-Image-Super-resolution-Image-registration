@@ -76,27 +76,27 @@ def btn_search_click():
             print("Файл не найден или формат файла не поддерживается")
 
 
-def btn_search_click2():
-    global media_label
-    global video
-    root.filename = filedialog.askopenfilename(initialdir="Test Video/", title='Выберите видео файл',
-                                               filetypes=(("Изображения", "*.jpg .png"), ("Все файлы", "*.*")))
-    field2.delete(0, END)
-    field2.insert(0, root.filename)
-    if field2.get() != "":
-        media_label.destroy()
-        video_name = field2.get()
-        media_label = Label(frame_media)
-        media_label.pack()
-        try:
-            progress_label_stage.pack_forget()
-            video = imageio.get_reader(video_name)
-            stream()
-        except:
-            progress_label_stage.pack(pady=10, expand=1, anchor=S)
-            progress_label_stage['text'] = "Файл не найден или формат файла не поддерживается"
-            root.update_idletasks()
-            print("Файл не найден или формат файла не поддерживается")
+# def btn_search_click2():
+#     global media_label
+#     global video
+#     root.filename = filedialog.askopenfilename(initialdir="Test Video/", title='Выберите видео файл',
+#                                                filetypes=(("Изображения", "*.jpg .png"), ("Все файлы", "*.*")))
+#     field2.delete(0, END)
+#     field2.insert(0, root.filename)
+#     if field2.get() != "":
+#         media_label.destroy()
+#         video_name = field2.get()
+#         media_label = Label(frame_media)
+#         media_label.pack()
+#         try:
+#             progress_label_stage.pack_forget()
+#             video = imageio.get_reader(video_name)
+#             stream()
+#         except:
+#             progress_label_stage.pack(pady=10, expand=1, anchor=S)
+#             progress_label_stage['text'] = "Файл не найден или формат файла не поддерживается"
+#             root.update_idletasks()
+#             print("Файл не найден или формат файла не поддерживается")
 
 
 def image_sequence():
@@ -193,8 +193,8 @@ def btn_process_click():
                 os.makedirs(pathOut)
             progress_label_stage['text'] = "Сохранение файла..."
             root.update_idletasks()
-            io.imsave(pathOut + str(len(listdir(pathOut))) + ".png", result_image)
-            progress_label_stage['text'] = 'Файл сохранен в ' + pathOut + str(len(listdir(pathOut)) - 1) + ".png"
+            io.imsave(pathOut + str(len(listdir(pathOut)) + 1) + ".png", result_image)
+            progress_label_stage['text'] = 'Файл сохранен в ' + pathOut + str(len(listdir(pathOut))) + ".png"
             progress_bar.pack_forget()
             progress_label.pack_forget()
             root.update_idletasks()
@@ -211,7 +211,7 @@ def btn_process_click():
 root = Tk()
 root.resizable(0, 0)
 root.geometry('800x600+' + str(int(GetSystemMetrics(0) / 2) - 400) + '+' + str(int(GetSystemMetrics(1) / 2) - 300))
-root.iconbitmap('test.ico')
+# root.iconbitmap('test.ico')
 root.title('Сверх-разрешение')
 root['bg'] = '#2196f3'
 bg_media = '#353334'
@@ -227,9 +227,9 @@ frame_media.place(relx=0.15, rely=0.35, relwidth=0.7, relheight=0.5)
 title1 = Label(frame_menu1, text='Выберите видео файл')
 field1 = Entry(frame_menu1, width=50)
 btn_search1 = Button(frame_menu1, text='Обзор', command=btn_search_click)
-title2 = Label(frame_menu2, text='      Выберите фото      ')
-field2 = Entry(frame_menu2, width=50)
-btn_search2 = Button(frame_menu2, text='Обзор',  command=btn_search_click2)
+# title2 = Label(frame_menu2, text='      Выберите фото      ')
+# field2 = Entry(frame_menu2, width=50)
+# btn_search2 = Button(frame_menu2, text='Обзор',  command=btn_search_click2)
 btn_process = Button(frame_media, text='ПРИМЕНИТЬ СВЕРХРАЗРЕШЕНИЕ', command=btn_process_click)
 media_label = Label(frame_media)
 progress_bar = ttk.Progressbar(frame_media, orient=HORIZONTAL, length=300, mode='determinate')
@@ -245,9 +245,9 @@ styles_drop_down = OptionMenu(root, style, "стандарт", "орео", "шр
 title1.pack(side=LEFT, padx=10, pady=15, anchor=NE)
 field1.pack(side=LEFT, padx=10, pady=15, anchor=NE)
 btn_search1.pack(side=LEFT, padx=10, pady=15, anchor=NE)
-title2.pack(side=LEFT, padx=10, pady=15, anchor=NE)
-field2.pack(side=LEFT, padx=10, pady=15, anchor=NE)
-btn_search2.pack(side=LEFT, padx=10, pady=15, anchor=NE)
+# title2.pack(side=LEFT, padx=10, pady=15, anchor=NE)
+# field2.pack(side=LEFT, padx=10, pady=15, anchor=NE)
+# btn_search2.pack(side=LEFT, padx=10, pady=15, anchor=NE)
 btn_process.pack(pady=15, side=BOTTOM)
 btn_apply_style.pack(side=RIGHT, anchor=N)
 styles_drop_down.pack(side=RIGHT, anchor=N)

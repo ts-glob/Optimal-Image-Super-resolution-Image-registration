@@ -37,7 +37,7 @@ def expansion_gui(files, progress_bar, progress_label, root):
         original_img = img_as_ubyte(rgb2gray(files[i]))
         rows = len(original_img)
         columns = len(original_img[0])
-        expanded_img = cv2.resize(original_img, (columns * 2, rows * 2))
+        expanded_img = cv2.resize(original_img, (columns * 7, rows * 7))
         result_array.append(expanded_img)
         progress_bar['value'] += progress_step
         progress_label.config(text=round(progress_bar['value']))

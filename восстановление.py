@@ -61,7 +61,7 @@ def filtration():
         io.imsave(pathOut + files[i], restored_img)
 
 
-def filtration_gui(files, progress_bar, progress_label, root):
+def filtration_gui_old(files, progress_bar, progress_label, root):
     def gaussian_kernel(kernel_size=3):
         h = gaussian(kernel_size, kernel_size / 3).reshape(kernel_size, 1)
         h = np.dot(h, h.transpose())
@@ -87,6 +87,30 @@ def filtration_gui(files, progress_bar, progress_label, root):
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
         img = img_as_ubyte(rgb2gray(files[i]))
         restored_img = wiener_filter(img, kernel, K=10)
+        restored_img = img_as_ubyte(
+            (restored_img - np.min(restored_img)) / (np.max(restored_img) - np.min(restored_img)))
+        result_array.append(restored_img)
+        progress_bar['value'] += progress_step
+        progress_label.config(text=round(progress_bar['value']))
+        root.update_idletasks()
+    progress_bar['value'] = 100
+    progress_label.config(text=progress_bar['value'])
+    root.update_idletasks()
+    return result_array
+
+
+from scipy import ndimage
+
+
+def filtration_gui(files, progress_bar, progress_label, root):
+    progress_step = 100 / len(files)
+    progress_bar['value'] = 0
+    progress_label.config(text="0")
+    root.update_idletasks()
+    result_array = []
+    for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
+        img = img_as_ubyte(rgb2gray(files[i]))
+        restored_img = ndimage.median_filter(img, size=7)
         restored_img = img_as_ubyte(
             (restored_img - np.min(restored_img)) / (np.max(restored_img) - np.min(restored_img)))
         result_array.append(restored_img)

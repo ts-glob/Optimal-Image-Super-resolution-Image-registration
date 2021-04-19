@@ -45,14 +45,15 @@ def registration_gui(files, progress_bar, progress_label, root):
     result_array.append(ref_image)  # сохранить первый файл
     for i in tqdm(range(1, len(files)), desc="Согласование: "):
         offset_image = img_as_ubyte(rgb2gray(files[i]))
-        reg_instance = StackReg(StackReg.AFFINE)
-        corrected_image = reg_instance.register_transform(ref_image, offset_image)
+        reg_instance1 = StackReg(StackReg.AFFINE)
+        corrected_image = reg_instance1.register_transform(ref_image, offset_image)
         corrected_image = img_as_ubyte(
             (corrected_image - np.min(corrected_image)) / (np.max(corrected_image) - np.min(corrected_image)))
         result_array.append(corrected_image)
         progress_bar['value'] += progress_step
         progress_label.config(text=round(progress_bar['value']))
         root.update_idletasks()
+        # io.imsave("temp/" + str(i) + ".jpg", corrected_image)
     progress_bar['value'] = 100
     progress_label.config(text=progress_bar['value'])
     root.update_idletasks()

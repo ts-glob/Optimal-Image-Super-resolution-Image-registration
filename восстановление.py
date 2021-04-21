@@ -64,7 +64,7 @@ def filtration():
         io.imsave(pathOut + files[i], restored_img)
 
 
-def filtration_gui_gauss(files, progress_bar, progress_label, root):
+def filtration_gui_wiener(files, progress_bar, progress_label, root):
     def gaussian_kernel(kernel_size=3):
         h = gaussian(kernel_size, kernel_size / 3).reshape(kernel_size, 1)
         h = np.dot(h, h.transpose())
@@ -177,9 +177,7 @@ def filtration_gui_sharpen_filter2D(files, progress_bar, progress_label, root):
 def filtration_gui_main(files, mode, progress_bar, progress_label, root):
     result_array = []
     if mode == "Винер (НЕ ГОТОВ)":
-        result_array = filtration_gui_gauss(files, progress_bar, progress_label, root)
-    if mode == "Гаусс":
-        result_array = filtration_gui_gauss(files, progress_bar, progress_label, root)
+        result_array = filtration_gui_wiener(files, progress_bar, progress_label, root)
     if mode == "Медианный":
         result_array = filtration_gui_median(files, progress_bar, progress_label, root)
     if mode == "Чёткость1":

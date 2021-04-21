@@ -42,6 +42,7 @@ def expansion_gui(files, expand_by, progress_bar, progress_label, root):
         progress_bar['value'] += progress_step
         progress_label.config(text=round(progress_bar['value']))
         root.update_idletasks()
+        # io.imsave("temp/" + str(i) + ".jpg", expanded_img)
     progress_bar['value'] = 100
     progress_label.config(text=progress_bar['value'])
     root.update_idletasks()

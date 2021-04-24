@@ -271,8 +271,9 @@ title2 = Label(frame_menu2, text='     Во сколько раз      \n     у
 field2 = Entry(frame_menu2, width=5, textvariable=expand)
 title3 = Label(frame_menu3, text='   Какой фильтр   \n     использовать     ')
 filter_method = StringVar()
-filter_method.set("Винер (НЕ ГОТОВ)")
-filter_method_drop_down = OptionMenu(frame_menu3, filter_method, "Винер (НЕ ГОТОВ)", "Медианный", "Чёткость1", "Чёткость2")
+filter_method.set("Винер2 (skimage)")
+filter_method_drop_down = OptionMenu(frame_menu3, filter_method, "Винер1 (scipy)", "Винер2 (skimage)",
+                                     "Медианный (scipy)", "Чёткость1 (scipy)", "Чёткость2 (cv2)")
 btn_process = Button(frame_media, text='ПРИМЕНИТЬ СВЕРХРАЗРЕШЕНИЕ', command=btn_process_click)
 media_label = Label(frame_media)
 progress_bar = ttk.Progressbar(frame_media, orient=HORIZONTAL, length=300, mode='determinate')

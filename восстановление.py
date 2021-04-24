@@ -14,16 +14,10 @@ import numpy as np
 from skimage import io
 from skimage import img_as_ubyte
 from skimage.color import rgb2gray
-import scipy
 from scipy import ndimage
 from skimage import img_as_float
 from numpy.fft import fft2, ifft2
-from scipy.signal import medfilt
 from scipy.signal import gaussian
-# from skimage.filters import gaussian
-from skimage.restoration import unsupervised_wiener
-from skimage.restoration import wiener
-from skimage.filters import median
 
 
 def filtration():

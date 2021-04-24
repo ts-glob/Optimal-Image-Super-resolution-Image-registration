@@ -224,7 +224,7 @@ def btn_process_click():
             progress_label_stage['text'] = "ЭТАП 4/4"
             result_image = комплексирование.restoration_gui(images, progress_bar, progress_label, root)
 
-            pathOut = "_RESULTS/"
+            pathOut = os.getcwd() + "/_RESULTS/"
             if not os.path.exists(pathOut):
                 os.makedirs(pathOut)
             progress_label_stage['text'] = "Сохранение файла..."

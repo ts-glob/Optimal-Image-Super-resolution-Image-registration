@@ -249,21 +249,22 @@ root.resizable(0, 0)
 root.geometry('800x600+' + str(int(GetSystemMetrics(0) / 2) - 400) + '+' + str(int(GetSystemMetrics(1) / 2) - 300))
 # root.iconbitmap('test.ico')
 root.title('Сверх-разрешение')
-root['bg'] = '#2196f3'
-bg_media = '#353334'
-bg_menu = '#f8f8f8'
+#2196f3 #353334 #f8f8f8
+root['bg'] = '#0d47a1'
+bg_media = '#f8f8f8'
+bg_menu = '#2196f3'
 
 frame_menu1 = Frame(root, bg=bg_menu)
 frame_menu2 = Frame(root, bg=bg_menu)
 frame_menu3 = Frame(root, bg=bg_menu)
 frame_media = Frame(root, bg=bg_media)
-frame_menu1.place(relx=0.15, rely=0.15, relwidth=0.7, relheight=0.1)
-frame_menu2.place(relx=0.15, rely=0.25, relwidth=0.3, relheight=0.1)
-frame_menu3.place(relx=0.45, rely=0.25, relwidth=0.4, relheight=0.1)
-frame_media.place(relx=0.15, rely=0.35, relwidth=0.7, relheight=0.5)
+frame_menu1.place(relx=0.10, rely=0.10, relwidth=0.80, relheight=0.20)
+frame_menu2.place(relx=0.10, rely=0.20, relwidth=0.35, relheight=0.10)
+frame_menu3.place(relx=0.45, rely=0.20, relwidth=0.40, relheight=0.10)
+frame_media.place(relx=0.10, rely=0.30, relwidth=0.80, relheight=0.60)
 
 title1 = Label(frame_menu1, text='Выберите видео файл')
-field1 = Entry(frame_menu1, width=50)
+field1 = Entry(frame_menu1, width=60)
 btn_search1 = Button(frame_menu1, text='Обзор', command=btn_search_click)
 expand = StringVar()
 expand.trace('w', limit_expansion)
@@ -299,12 +300,12 @@ menu_bar.add_cascade(label="Инфо", menu=menu_info)
 menu_info.add_command(label="Инструкция", command=about)
 menu_info.add_command(label="О программе", command=instructions)
 
-title1.pack(side=LEFT, padx=10, pady=15, anchor=NE)
-field1.pack(side=LEFT, padx=10, pady=15, anchor=NE)
-btn_search1.pack(side=LEFT, padx=10, pady=15, anchor=NE)
-title2.pack(side=LEFT, padx=10, pady=15, anchor=NE)
-field2.pack(side=LEFT, padx=10, pady=20, anchor=NE)
-title3.pack(side=LEFT, padx=10, pady=15, anchor=NE)
+title1.pack(side=LEFT, padx=20, pady=20, anchor=NE)
+field1.pack(side=LEFT, padx=10, pady=20, anchor=NE)
+btn_search1.pack(side=LEFT, padx=10, pady=20, anchor=NE)
+title2.pack(side=LEFT, padx=20, pady=15, anchor=NE)
+field2.pack(side=LEFT, padx=10, pady=22, anchor=NE)
+title3.pack(side=LEFT, padx=20, pady=15, anchor=NE)
 filter_method_drop_down.pack(side=LEFT, padx=10, pady=15, anchor=NE)
 btn_process.pack(pady=15, side=BOTTOM)
 

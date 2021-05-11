@@ -191,16 +191,18 @@ def filtration_gui_wiener2(files, progress_bar, progress_label, root):
     return result_array
 
 
-def filtration_gui_main(files, mode, progress_bar, progress_label, root):
+def filtration_gui_main(files, mode, progress_bar_info):
     result_array = []
-    if mode == "Винер1 (scipy)":
-        result_array = filtration_gui_wiener(files, progress_bar, progress_label, root)
-    if mode == "Винер2 (skimage)":
-        result_array = filtration_gui_wiener2(files, progress_bar, progress_label, root)
-    if mode == "Медианный (scipy)":
-        result_array = filtration_gui_median(files, progress_bar, progress_label, root)
-    if mode == "Чёткость1 (scipy)":
-        result_array = filtration_gui_sharpen_ndimage(files, progress_bar, progress_label, root)
-    if mode == "Чёткость2 (cv2)":
-        result_array = filtration_gui_sharpen_filter2D(files, progress_bar, progress_label, root)
+    if mode == "Без предобработки":
+        result_array = files
+    if mode == "Винер":
+        result_array = filtration_gui_wiener2(files, progress_bar_info[0], progress_bar_info[1], progress_bar_info[2])
+    if mode == "Гаусс":
+        pass    # todo
+    if mode == "Медианный":
+        result_array = filtration_gui_median(files, progress_bar_info[0], progress_bar_info[1], progress_bar_info[2])
+    if mode == "Контраст":
+        pass    # todo
+    if mode == "Резкость":
+        pass    # todo
     return result_array

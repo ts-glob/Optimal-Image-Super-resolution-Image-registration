@@ -35,11 +35,11 @@ def registration():
         io.imsave(pathOut + files[i], corrected_image)
 
 
-def registration_gui(files, progress_bar, progress_label, root):
+def registration_gui(files, progress_bar_info):
     progress_step = 100 / (len(files))
-    progress_bar['value'] = 0
-    progress_label.config(text="0")
-    root.update_idletasks()
+    progress_bar_info[0]['value'] = 0
+    progress_bar_info[1].config(text="0")
+    progress_bar_info[2].update_idletasks()
     result_array = []
     ref_image = img_as_ubyte(rgb2gray(files[0]))  # задаём эталон
     result_array.append(ref_image)  # сохранить первый файл
@@ -50,11 +50,11 @@ def registration_gui(files, progress_bar, progress_label, root):
         corrected_image = img_as_ubyte(
             (corrected_image - np.min(corrected_image)) / (np.max(corrected_image) - np.min(corrected_image)))
         result_array.append(corrected_image)
-        progress_bar['value'] += progress_step
-        progress_label.config(text=round(progress_bar['value']))
-        root.update_idletasks()
+        progress_bar_info[0]['value'] += progress_step
+        progress_bar_info[1].config(text=round(progress_bar_info[0]['value']))
+        progress_bar_info[2].update_idletasks()
         # io.imsave("temp/" + str(i) + ".jpg", corrected_image)
-    progress_bar['value'] = 100
-    progress_label.config(text=progress_bar['value'])
-    root.update_idletasks()
+    progress_bar_info[0]['value'] = 100
+    progress_bar_info[1].config(text=progress_bar_info[0]['value'])
+    progress_bar_info[2].update_idletasks()
     return result_array

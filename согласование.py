@@ -35,7 +35,7 @@ def registration():
         io.imsave(pathOut + files[i], corrected_image)
 
 
-def registration_gui(files, progress_bar_info):
+def registration_gui(files, additional_channel, progress_bar_info):
     progress_step = 100 / (len(files))
     progress_bar_info[0]['value'] = 0
     progress_bar_info[1].config(text="0")
@@ -57,4 +57,5 @@ def registration_gui(files, progress_bar_info):
     progress_bar_info[0]['value'] = 100
     progress_bar_info[1].config(text=progress_bar_info[0]['value'])
     progress_bar_info[2].update_idletasks()
-    return result_array
+    # todo не забыть преобразовать "additional_channel" ошибок интерполяции
+    return result_array, additional_channel

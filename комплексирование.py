@@ -56,7 +56,7 @@ def fusing_gui_archive(files, progress_bar_info):
     return c
 
 
-def fusing_gui(files, progress_bar_info):
+def fusing_gui(files, additional_channel, progress_bar_info):
     progress_step = 100 / files[0].shape[0]
     progress_bar_info[0]['value'] = 0
     progress_bar_info[1].config(text="0")
@@ -68,7 +68,7 @@ def fusing_gui(files, progress_bar_info):
             b = 0
             for m in range(0, len(files)):
                 img = img_as_ubyte(rgb2gray(files[m]))
-                D_trans = 100   # np.var(img)   # todo
+                D_trans = additional_channel[m][i][j]
                 a += img[i][j] / D_trans
                 b += 1 / D_trans
             c = a / b

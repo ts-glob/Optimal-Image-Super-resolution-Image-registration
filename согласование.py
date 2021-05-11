@@ -46,7 +46,10 @@ def registration_gui(files, additional_channel, progress_bar_info):
     for i in tqdm(range(1, len(files)), desc="Согласование: "):
         offset_image = img_as_ubyte(rgb2gray(files[i]))
         reg_instance1 = StackReg(StackReg.AFFINE)
-        corrected_image = reg_instance1.register_transform(ref_image, offset_image)
+        reg_instance1.register(ref_image, offset_image)
+        corrected_image = reg_instance1.transform(offset_image)
+        additional_channel[i] = reg_instance1.transform(additional_channel[i])  #todo првоерить, правильно ли сработало
+        # corrected_image = reg_instance1.register_transform(ref_image, offset_image)
         corrected_image = img_as_ubyte(
             (corrected_image - np.min(corrected_image)) / (np.max(corrected_image) - np.min(corrected_image)))
         result_array.append(corrected_image)
@@ -57,5 +60,4 @@ def registration_gui(files, additional_channel, progress_bar_info):
     progress_bar_info[0]['value'] = 100
     progress_bar_info[1].config(text=progress_bar_info[0]['value'])
     progress_bar_info[2].update_idletasks()
-    # todo не забыть преобразовать "additional_channel" ошибок интерполяции
     return result_array, additional_channel

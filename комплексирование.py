@@ -13,6 +13,7 @@ import numpy as np
 from skimage import io
 from skimage import img_as_ubyte
 from skimage.color import rgb2gray
+import random
 
 
 def restoration():
@@ -69,6 +70,9 @@ def fusing_gui(files, additional_channel, progress_bar_info):
             for m in range(0, len(files)):
                 img = img_as_ubyte(rgb2gray(files[m]))
                 D_trans = additional_channel[m][i][j]
+
+                D_trans = random.randint(1, 100)    # todo не забудь удалить
+
                 a += img[i][j] / D_trans
                 b += 1 / D_trans
             c = a / b

@@ -95,10 +95,12 @@ def btn_check_result_folder():
 
 
 def image_sequence():
+    from skimage.color import rgb2gray
+    from skimage import img_as_ubyte
     images = []
     try:
         while 1:
-            images.append(video.get_next_data())
+            images.append(img_as_ubyte(rgb2gray(video.get_next_data())))
     except:
         return images
 

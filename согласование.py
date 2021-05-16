@@ -14,7 +14,7 @@ import numpy as np
 from pystackreg import StackReg
 from skimage import io
 from skimage.color import rgb2gray
-from skimage import img_as_ubyte
+from skimage import img_as_ubyte, img_as_float
 
 
 def registration():
@@ -48,8 +48,8 @@ def registration_gui(files, additional_channel, progress_bar_info):
         reg_instance1 = StackReg(StackReg.AFFINE)
         reg_instance1.register(ref_image, offset_image)
         corrected_image = reg_instance1.transform(offset_image)
-        additional_channel[i] = reg_instance1.transform(additional_channel[i])  # todo провоерить, правильно ли сработало
-        corrected_image = img_as_ubyte(
+        additional_channel[i] = reg_instance1.transform(additional_channel[i])
+        corrected_image = img_as_float(
             (corrected_image - np.min(corrected_image)) / (np.max(corrected_image) - np.min(corrected_image)))
         result_array.append(corrected_image)
         progress_bar_info[0]['value'] += progress_step

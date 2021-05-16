@@ -11,7 +11,7 @@ from os.path import isfile, join
 from tqdm import tqdm
 import numpy as np
 from skimage import io
-from skimage import img_as_ubyte
+from skimage import img_as_ubyte, img_as_float
 from skimage.color import rgb2gray
 import random
 
@@ -68,13 +68,11 @@ def fusing_gui(files, additional_channel, progress_bar_info):
             a = 0
             b = 0
             for m in range(0, len(files)):
-                img = img_as_ubyte(rgb2gray(files[m]))
+                img = img_as_float(rgb2gray(files[m]))
                 D_trans = additional_channel[m][i][j]
-
-                D_trans = random.randint(1, 100)    # todo не забудь удалить
-
-                a += img[i][j] / D_trans
-                b += 1 / D_trans
+                if D_trans != 0:
+                    a += img[i][j] / D_trans
+                    b += 1 / D_trans
             c = a / b
             pixel_matrix[i][j] = c
         progress_bar_info[0]['value'] += progress_step

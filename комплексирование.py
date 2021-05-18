@@ -58,7 +58,7 @@ def fusing_gui_archive(files, progress_bar_info):
 
 
 def fusing_gui(files, additional_channel, progress_bar_info):
-    progress_step = 100 / files[0].shape[0]
+    progress_step = 100 / (files[0].shape[0] * files[0].shape[1])
     progress_bar_info[0]['value'] = 0
     progress_bar_info[1].config(text="0")
     progress_bar_info[2].update_idletasks()
@@ -73,11 +73,14 @@ def fusing_gui(files, additional_channel, progress_bar_info):
                 if D_trans != 0:
                     a += img[i][j] / D_trans
                     b += 1 / D_trans
-            c = a / b
+            try:
+                c = a / b
+            except:
+                c = img[i][j]
             pixel_matrix[i][j] = c
-        progress_bar_info[0]['value'] += progress_step
-        progress_bar_info[1].config(text=round(progress_bar_info[0]['value']))
-        progress_bar_info[2].update_idletasks()
+            progress_bar_info[0]['value'] += progress_step
+            progress_bar_info[1].config(text=round(progress_bar_info[0]['value']))
+            progress_bar_info[2].update_idletasks()
     pixel_matrix = img_as_ubyte((pixel_matrix - np.min(pixel_matrix)) / (np.max(pixel_matrix) - np.min(pixel_matrix)))
     progress_bar_info[0]['value'] = 100
     progress_bar_info[1].config(text=progress_bar_info[0]['value'])

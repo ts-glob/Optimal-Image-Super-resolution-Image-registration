@@ -28,15 +28,15 @@ def additional_channel_gui(files, expand_by, progress_bar_info):
     T = 1
     L = expand_by
     rho = 0.9
+    A = -log(rho)
     for i in range(0, len(files)):
         Dx = np.var(img_as_float(rgb2gray(files[i])))
-        for a in range(0, L):
-            for b in range(0, L):
-                A = -log(rho)
-                B = (1 - (files[i][a][b] / T))
-                C = (files[i][a][b] / T)
-                additional_channel = 2 * Dx * A * B * C  # todo
-                lil_array[i][a][b] = additional_channel
+        for a in range(1, L+1):
+            for b in range(1, L+1):
+                B = 2 * a * a * b * b - 4 * a * b * (a + b) + (a * a + 6 * a * b + b * b) - a - b
+                C = (a * b) * (a * b)
+                additional_channel = 2 * Dx * A * B - 2 * Dx * C
+                lil_array[i][a-1][b-1] = additional_channel
     for i in tqdm(range(0, len(files)), desc="Доп канал ошибки интерполяции: "):
         temp_a = 0
         for a in range(0, files[0].shape[0]):
@@ -44,7 +44,7 @@ def additional_channel_gui(files, expand_by, progress_bar_info):
             if a % L == 1:
                 temp_a += L
             for b in range(0, files[0].shape[1]):
-                result_array[i][a][b] = lil_array[i][a-temp_a][b-temp_b]
+                result_array[i][a][b] = lil_array[i][a - temp_a][b - temp_b]
                 if b % L == 1:
                     temp_b += L
         progress_bar_info[0]['value'] += progress_step

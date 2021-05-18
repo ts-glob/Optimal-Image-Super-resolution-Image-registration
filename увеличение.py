@@ -11,7 +11,7 @@ from os.path import isfile, join
 from tqdm import tqdm
 import cv2
 from skimage import io
-from skimage import img_as_ubyte
+from skimage import img_as_ubyte, img_as_float
 from skimage.color import rgb2gray
 
 

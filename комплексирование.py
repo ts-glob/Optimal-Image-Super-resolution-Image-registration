@@ -42,7 +42,7 @@ def fusing_gui_archive(files, progress_bar_info):
     a = 0
     b = 0
     for i in tqdm(range(0, len(files)), desc="Комплексирование: "):
-        img = img_as_ubyte(rgb2gray(files[i]))
+        img = img_as_float(rgb2gray(files[i]))
         D_trans = np.var(img)
         a += img / D_trans
         b += 1 / D_trans
@@ -68,15 +68,17 @@ def fusing_gui(files, additional_channel, progress_bar_info):
             a = 0
             b = 0
             for m in range(0, len(files)):
-                img = img_as_float(rgb2gray(files[m]))
+                img = img_as_ubyte(rgb2gray(files[m]))
                 D_trans = additional_channel[m][i][j]
                 if D_trans != 0:
                     a += img[i][j] / D_trans
                     b += 1 / D_trans
             try:
                 c = a / b
+                if c > 255 or c < 0:
+                    c = 122 #todo
             except:
-                c = img[i][j]
+                c = files[0][i][j]
             pixel_matrix[i][j] = c
             progress_bar_info[0]['value'] += progress_step
             progress_bar_info[1].config(text=round(progress_bar_info[0]['value']))

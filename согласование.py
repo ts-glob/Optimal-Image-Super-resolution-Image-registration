@@ -49,7 +49,7 @@ def registration_gui(files, additional_channel, progress_bar_info):
         reg_instance1.register(ref_image, offset_image)
         corrected_image = reg_instance1.transform(offset_image)
         additional_channel[i] = reg_instance1.transform(additional_channel[i])
-        corrected_image = img_as_float(
+        corrected_image = img_as_ubyte(
             (corrected_image - np.min(corrected_image)) / (np.max(corrected_image) - np.min(corrected_image)))
         result_array.append(corrected_image)
         progress_bar_info[0]['value'] += progress_step

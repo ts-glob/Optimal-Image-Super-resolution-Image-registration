@@ -140,10 +140,10 @@ def btn_process_click():
             images = увеличение.expansion_gui(images, expand_by, progress_bar_info)
 
             progress_label_stage['text'] = "ЭТАП 3/5"
-            additional_channel = доп_канал.additional_channel_gui(images, expand_by, progress_bar_info)
+            images = согласование.registration_gui(images, progress_bar_info)
 
             progress_label_stage['text'] = "ЭТАП 4/5"
-            images, additional_channel = согласование.registration_gui(images, additional_channel, progress_bar_info)
+            additional_channel = доп_канал.additional_channel_gui(images, expand_by, progress_bar_info)
 
             progress_label_stage['text'] = "ЭТАП 5/5"
             result_image = комплексирование.fusing_gui(images, additional_channel, progress_bar_info)

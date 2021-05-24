@@ -1,25 +1,20 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
-from PIL import Image, ImageTk
+from win32api import GetSystemMetrics
 from skimage import io
 from os import listdir
-from win32api import GetSystemMetrics
+from PIL import Image, ImageTk
 
 import os
 import imageio
-import восстановление
-import увеличение
-import доп_канал
-import согласование
-import комплексирование
 
 
 def stream():
     try:
         try:
             """
-            стрим видео-файла
+            анимация видео-файла
             """
             delay = int(1000 / video.get_meta_data()['fps'])
             image = video.get_next_data()
@@ -36,7 +31,7 @@ def stream():
             media_label.after(delay, lambda: stream())
         except:
             """
-            стрим gif-файла
+            анимация gif-файла
             """
             image = video.get_next_data()
             if int(len(image[0])) > 300:
@@ -49,7 +44,7 @@ def stream():
             frame_image = ImageTk.PhotoImage(frame_image)
             media_label.config(image=frame_image)
             media_label.image = frame_image
-            media_label.after(1, lambda: stream())
+            media_label.after(40, lambda: stream())
     except:
         print("Видео закончилось")
         video.close()
@@ -57,6 +52,9 @@ def stream():
 
 
 def limit_expansion(*args):
+    """
+    форматно-логический контроль поля ввода
+    """
     value = filed_limit_expansion.get()
     if len(value) > 2:
         filed_limit_expansion.set(value[:2])
@@ -67,6 +65,9 @@ def limit_expansion(*args):
 
 
 def btn_search_click():
+    """
+    поиск файла в системе
+    """
     global media_label
     global video
     root.filename = filedialog.askopenfilename(initialdir="Test Video/", title='Выберите видео файл',
@@ -75,6 +76,9 @@ def btn_search_click():
     field_choose_filename.delete(0, END)
     field_choose_filename.insert(0, root.filename)
     if field_choose_filename.get() != "":
+        """
+        попытка воспроизвести анимацию
+        """
         media_label.destroy()
         video_name = field_choose_filename.get()
         media_label = Label(frame_media)
@@ -91,7 +95,9 @@ def btn_search_click():
 
 
 def btn_check_result_folder():
-    import os
+    """
+    открыть папку с сохранениями
+    """
     import subprocess
     explorer_path = os.path.join(os.getenv('WINDIR'), 'explorer.exe')
     path = os.path.normpath(os.getcwd() + "\\_RESULTS\\")
@@ -99,6 +105,9 @@ def btn_check_result_folder():
 
 
 def image_sequence():
+    """
+    подготовка файла для начала обработки
+    """
     from skimage.color import rgb2gray
     from skimage import img_as_ubyte
     images = []
@@ -117,15 +126,44 @@ def instructions():
     pass
 
 
+def algorithm(images, expand_by, filtration_mode, progress_bar_info):
+    """
+    основной алгоритм метода реализованный в связанных модулях
+    """
+    import filtration
+    import expansion
+    import new_channel
+    import registration
+    import fusing
+    progress_label_stage['text'] = "ЭТАП 1/5"
+    images = filtration.filtration_gui_main(images, filtration_mode, progress_bar_info)
+    progress_label_stage['text'] = "ЭТАП 2/5"
+    images = expansion.expansion_gui(images, expand_by, progress_bar_info)
+    progress_label_stage['text'] = "ЭТАП 3/5"
+    images = registration.registration_gui(images, progress_bar_info)
+    progress_label_stage['text'] = "ЭТАП 4/5"
+    additional_channel = new_channel.additional_channel_gui(images, expand_by, progress_bar_info)
+    progress_label_stage['text'] = "ЭТАП 5/5"
+    result_image = fusing.fusing_gui(images, additional_channel, progress_bar_info)
+    return result_image
+
+
 def btn_process_click():
+    """
+    запрос на запуск основного алгоритма
+    """
     global media_label
     global video
     if field_choose_filename.get() != "" and field_expand.get() != "":
         video_name = field_choose_filename.get()
         expand_by = int(field_expand.get())
+        filtration_mode = filter_method.get()
         media_label.pack_forget()
         root.update_idletasks()
         try:
+            """
+            попытка подготовки файла и последующий запуск алгоритма 
+            """
             progress_label_stage['text'] = ""
             progress_label_stage.pack_forget()
             root.update_idletasks()
@@ -135,24 +173,7 @@ def btn_process_click():
             progress_bar.pack(pady=0, expand=0, anchor=S)
             progress_label.pack(pady=0, expand=0, anchor=S)
             progress_bar_info = [progress_bar, progress_label, root]
-
-            progress_label_stage['text'] = "ЭТАП 1/5"
-            mode = filter_method.get()
-            images = восстановление.filtration_gui_main(images, mode, progress_bar_info)
-
-            progress_label_stage['text'] = "ЭТАП 2/5"
-            images = увеличение.expansion_gui(images, expand_by, progress_bar_info)
-
-            progress_label_stage['text'] = "ЭТАП 3/5"
-            images = согласование.registration_gui(images, progress_bar_info)
-
-            progress_label_stage['text'] = "ЭТАП 4/5"
-            additional_channel = доп_канал.additional_channel_gui(images, expand_by, progress_bar_info)
-
-            progress_label_stage['text'] = "ЭТАП 5/5"
-            result_image = комплексирование.fusing_gui(images, additional_channel, progress_bar_info)
-
-
+            result_image = algorithm(images, expand_by, filtration_mode, progress_bar_info)
             progress_label_stage['text'] = "Сохранение файла..."
             root.update_idletasks()
             io.imsave(pathOut + str(len(listdir(pathOut)) + 1) + ".png", result_image)
@@ -167,6 +188,10 @@ def btn_process_click():
             video = imageio.get_reader(video_name)
             stream()
         except:
+            """
+            в случае любой ошибки (файл не подходит или ошибка в модулях алгоритма)
+            происходит вывод текста и прекращение обработки  
+            """
             progress_label_stage.pack_forget()
             progress_bar.pack_forget()
             progress_label.pack_forget()
@@ -175,12 +200,18 @@ def btn_process_click():
             root.update_idletasks()
             print("Файл не найден или формат файла не поддерживается")
     else:
+        """
+        в случае незаполненных полей происходит вывод ошибки  
+        """
         media_label.pack_forget()
         progress_label_stage.pack(pady=10, expand=1, anchor=S)
         progress_label_stage['text'] = "Введите все обязательные параметры"
         root.update_idletasks()
 
 
+"""
+инициализация интерфейса
+"""
 pathOut = os.getcwd() + "/_RESULTS/"
 if not os.path.exists(pathOut):
     os.makedirs(pathOut)

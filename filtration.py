@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Dec  5 13:57:29 2020
+
+@author: tsoyg
+"""
+
 from tqdm import tqdm
 import numpy as np
 from skimage import img_as_ubyte, img_as_float

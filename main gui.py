@@ -119,11 +119,65 @@ def image_sequence():
 
 
 def about():
-    pass
+    def git_link():
+        import webbrowser
+        url = "https://github.com/ts-glob/Optimal-Image-Super-resolution-Image-registration"
+        webbrowser.open(url, new=2)
+
+    about = Toplevel()
+    about.title('О программе')
+    about.resizable(0, 0)
+    about.geometry('400x200')
+    about['bg'] = '#0f7850'
+    font_color = '#f06e71'
+    about_text = Label(about)
+    about_text['text'] = "Программа разработана студентом самарского университета \n" \
+                         "Цоем Глебом в 2021 году в рамках дипломной работы"
+    about_text['bg'] = font_color
+    about_text.pack(pady=10, expand=1)
+    btn_git = Button(about, text='GITHUB ->', command=git_link)
+    btn_git['bg'] = font_color
+    btn_git.pack(padx=10, expand=1)
 
 
 def instructions():
-    pass
+    instructions = Toplevel()
+    instructions.resizable(0, 0)
+    instructions.title('Использование программы')
+    instructions.geometry('700x520')
+    instructions_text = Label(instructions, justify='left')
+    instructions_text[
+        'text'] = "Программа предназначена для получения изображения высокого разрешения с восстановлением качества по \n" \
+                  "серии кадров изображений низкого разрешения. Восстановление обеспечивается взвешенным суммированием \n" \
+                  "всех пикселей. \n\n" \
+                  "В той же директории, что и .exe файл во время запуска программы создаётся новая папка: \n " + os.getcwd() + \
+                  "\\\"_RESULTS\"\n " \
+                  "для хранения результатов. Для получения корректного результата алгоритма сверхразрешения \n" \
+                  "необходимо выполнить следующие шаги: \n\n" \
+                  "1. Выберите видео/анимированное изображение. \n" \
+                  "2. Задайте желаемое увеличение. Исходное видео/анимация будет увеличено во столько раз, сколько будет задано. \n" \
+                  "    Рекомендуется не увеличивать кадры разрешением более 1000 x 1000. \n" \
+                  "3. Задайте способ предобработки. В качестве предобработки используются методы фильтрации изображений. \n" \
+                  "\t а) фильтр винера; \n" \
+                  "\t б) фильтр гаусса; \n" \
+                  "\t в) медианный фильтр; \n" \
+                  "\t г) адаптивное контрастирование; \n" \
+                  "\t д) повышение резкости; \n" \
+                  "\t е) уменьшение шума; \n" \
+                  "\t ж) вейвлет-шумоподавление; \n" \
+                  "\t Возможна работа без предобработки." \
+                  "Если всё успешно выполнено, что отобразится анимация файла. \n" \
+                  "4. Нажмите на кнопку \"ПРИМЕНИТЬ СВЕРХРАЗРЕШЕНИЕ\". Дождитесь обработки. \n" \
+                  "\t а) первый этап соответствует предобработке; \n" \
+                  "\t б) второй - увеличению; \n" \
+                  "\t в) третий - вычислению доп канала ошибки интерполяции; \n" \
+                  "\t г) четвёртый - согласованию кадров; \n" \
+                  "\t д) пятый - суммированию всех кадров в одно изображение; \n" \
+                  "Если всё прошло успешно, то отобразится результат работы. Сгенерированный файл сохранится в папку \n " + os.getcwd() + \
+                  "\\\"_RESULTS\" \n" \
+                  "Данную папку можно быстро открыть по кнопке меню \"Показать в папке\". Дальше возможно продолжать \n" \
+                  "работу с программой с новыми данными."
+    instructions_text.pack(pady=20, side=TOP, anchor="w")
 
 
 def algorithm(images, expand_by, filtration_mode, progress_bar_info):
@@ -236,9 +290,9 @@ menu_bar = Menu(root)
 root.config(menu=menu_bar)
 menu_info = Menu(menu_bar)
 menu_bar.add_cascade(label="Инфо", menu=menu_info)
-menu_info.add_command(label="Инструкция", command=about)
+menu_info.add_command(label="О программе", command=about)
+menu_info.add_command(label="Инструкция", command=instructions)
 menu_info.add_command(label="Показать в папке", command=btn_check_result_folder)
-menu_info.add_command(label="О программе", command=instructions)
 label_choose_filename = Label(frame_menu1, text='Выберите видео файл')
 field_choose_filename = Entry(frame_menu1, width=60)
 btn_search = Button(frame_menu1, text='Обзор', command=btn_search_click)

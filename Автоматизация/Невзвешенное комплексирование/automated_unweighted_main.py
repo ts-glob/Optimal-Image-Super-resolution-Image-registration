@@ -2,6 +2,7 @@ import os
 import automated_expansion
 import automated_registration
 import automated_fusing
+import automated_sko
 from skimage import io
 import imageio
 
@@ -28,3 +29,4 @@ image_sequence()
 automated_expansion.expansion()
 automated_registration.registration()
 automated_fusing.restoration()
+automated_sko.sko()

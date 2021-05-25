@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Oct 13 18:10:49 2020
-
-@author: tsoyg
-"""
-
-import cv2
 import os
 from os import listdir
 from os.path import isfile, join
@@ -14,7 +6,7 @@ import numpy as np
 from pystackreg import StackReg
 from skimage import io
 from skimage.color import rgb2gray
-from skimage import img_as_ubyte, img_as_float
+from skimage import img_as_ubyte
 
 
 def registration():
@@ -25,7 +17,6 @@ def registration():
 
     ref_image = img_as_ubyte(rgb2gray(io.imread(join(pathIn, files[0]))))  # задаём эталон
     io.imsave(pathOut + files[0], img_as_ubyte(ref_image))  # сохранить первый файл
-    time_arr = [None] * (len(files))
     for i in tqdm(range(1, len(files)), desc="Согласование: "):
         offset_image = img_as_ubyte(rgb2gray(io.imread(join(pathIn, files[i]))))
         reg_instance = StackReg(StackReg.AFFINE)

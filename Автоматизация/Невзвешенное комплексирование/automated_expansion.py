@@ -1,17 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Dec  5 13:57:29 2020
-
-@author: tsoyg
-"""
-
 import os
 from os import listdir
 from os.path import isfile, join
 from tqdm import tqdm
 import cv2
 from skimage import io
-from skimage import img_as_ubyte, img_as_float
+from skimage import img_as_ubyte
 from skimage.color import rgb2gray
 
 

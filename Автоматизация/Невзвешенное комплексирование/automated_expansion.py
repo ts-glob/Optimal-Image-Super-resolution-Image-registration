@@ -17,8 +17,8 @@ from skimage.color import rgb2gray
 
 def expansion():
     expand_by = 5
-    pathIn = "Невзвешенное комплексирование/0. оригинал/"
-    pathOut = "Невзвешенное комплексирование/1. увеличение размерности/"
+    pathIn = "0. оригинал/"
+    pathOut = "1. увеличение размерности/"
     files = [f for f in listdir(pathIn) if isfile(join(pathIn, f))]
     if not os.path.exists(pathOut): os.makedirs(pathOut)
     for i in tqdm(range(0, len(files)), desc="Увеличение размерности: "):

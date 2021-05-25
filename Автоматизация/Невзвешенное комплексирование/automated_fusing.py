@@ -16,8 +16,8 @@ from skimage.color import rgb2gray
 
 
 def restoration():
-    pathIn = "Невзвешенное комплексирование/2. согласования/"
-    pathOut = "Невзвешенное комплексирование/3. комплексирование изображений/"
+    pathIn = "2. согласования/"
+    pathOut = "3. комплексирование изображений/"
     files = [f for f in listdir(pathIn) if isfile(join(pathIn, f))]
     if not os.path.exists(pathOut): os.makedirs(pathOut)
     a = 0

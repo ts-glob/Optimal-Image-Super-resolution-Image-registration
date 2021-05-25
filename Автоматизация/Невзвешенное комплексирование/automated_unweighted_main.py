@@ -26,9 +26,9 @@ def image_sequence():
         pass
 
 
-pathIn = "Невзвешенное комплексирование/0. оригинал/"
+pathIn = "0. оригинал/"
 if not os.path.exists(pathIn): os.makedirs(pathIn)
-video_name = "Test Video/5(+).gif"
+video_name = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/Test Video/5(+).gif"
 video = imageio.get_reader(video_name)
 image_sequence()
 

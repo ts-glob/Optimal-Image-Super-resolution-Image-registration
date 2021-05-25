@@ -18,8 +18,8 @@ from skimage import img_as_ubyte, img_as_float
 
 
 def registration():
-    pathIn = "Невзвешенное комплексирование/1. увеличение размерности/"
-    pathOut = "Невзвешенное комплексирование/2. согласования/"
+    pathIn = "1. увеличение размерности/"
+    pathOut = "2. согласования/"
     files = [f for f in listdir(pathIn) if isfile(join(pathIn, f))]
     if not os.path.exists(pathOut): os.makedirs(pathOut)
 

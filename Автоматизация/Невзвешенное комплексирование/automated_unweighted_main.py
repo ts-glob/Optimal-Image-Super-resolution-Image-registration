@@ -14,14 +14,14 @@ def image_sequence():
         i = 0
         while 1:
             img = img_as_ubyte(rgb2gray(video.get_next_data()))
-            io.imsave(pathIn + str(i) + ".jpg", img)
+            io.imsave(start_path + str(i) + ".jpg", img)
             i += 1
     except:
         pass
 
 
-pathIn = "0. оригинал/"
-if not os.path.exists(pathIn): os.makedirs(pathIn)
+start_path = "0. оригинал/"
+if not os.path.exists(start_path): os.makedirs(start_path)
 video_name = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/Test Video/5(+).gif"
 video = imageio.get_reader(video_name)
 image_sequence()

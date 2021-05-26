@@ -9,7 +9,7 @@ from skimage.color import rgb2gray
 
 
 def expansion():
-    expand_by = 5
+    expand_by = 2
     pathIn = "0. оригинал/"
     pathOut = "1. увеличение размерности/"
     files = [f for f in listdir(pathIn) if isfile(join(pathIn, f))]

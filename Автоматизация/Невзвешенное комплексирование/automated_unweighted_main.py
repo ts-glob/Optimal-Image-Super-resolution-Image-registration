@@ -2,7 +2,6 @@ import os
 import automated_expansion
 import automated_registration
 import automated_fusing
-import automated_sko
 from skimage import io
 import imageio
 
@@ -22,11 +21,11 @@ def image_sequence():
 
 start_path = "0. оригинал/"
 if not os.path.exists(start_path): os.makedirs(start_path)
-video_name = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/Test Video/5(+).gif"
+video_name = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/Автоматизация/Невзвешенное комплексирование/" \
+             "искаженная последовательность/1.gif"
 video = imageio.get_reader(video_name)
 image_sequence()
 
 automated_expansion.expansion()
 automated_registration.registration()
 automated_fusing.restoration()
-automated_sko.sko()

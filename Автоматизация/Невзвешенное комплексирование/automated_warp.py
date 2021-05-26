@@ -26,6 +26,6 @@ def image_sequence():
 
 save_path = "искаженная последовательность/"
 if not os.path.exists(save_path): os.makedirs(save_path)
-video_name = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/Test Video/5(+).gif"
+video_name = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/Test Video/4.gif"
 video = imageio.get_reader(video_name)
 image_sequence()

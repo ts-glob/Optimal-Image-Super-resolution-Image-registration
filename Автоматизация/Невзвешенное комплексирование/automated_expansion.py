@@ -8,8 +8,7 @@ from skimage import img_as_ubyte
 from skimage.color import rgb2gray
 
 
-def expansion():
-    expand_by = 2
+def expansion(expand_by):
     pathIn = "0. оригинал/"
     pathOut = "1. увеличение размерности/"
     files = [f for f in listdir(pathIn) if isfile(join(pathIn, f))]

@@ -9,6 +9,8 @@ import imageio
 def image_sequence():
     from skimage.color import rgb2gray
     from skimage import img_as_ubyte
+    start_path = "0. оригинал/"
+    if not os.path.exists(start_path): os.makedirs(start_path)
     try:
         i = 0
         while 1:
@@ -19,13 +21,11 @@ def image_sequence():
         pass
 
 
-start_path = "0. оригинал/"
-if not os.path.exists(start_path): os.makedirs(start_path)
 video_name = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/Автоматизация/Невзвешенное комплексирование/" \
-             "искаженная последовательность/1.gif"
+             "искаженная последовательность/5.gif"
 video = imageio.get_reader(video_name)
 image_sequence()
 
-automated_expansion.expansion()
+automated_expansion.expansion(10)
 automated_registration.registration()
 automated_fusing.restoration()

@@ -17,7 +17,7 @@ def image_sequence():
             img = img_as_float(rgb2gray(video.get_next_data()))
             convolved_img = conv2(img, psf, 'same')
             noisy_img = random_noise(convolved_img, mode='gaussian')
-            dec_img = noisy_img[::10, ::10]
+            dec_img = noisy_img[::2, ::2]
             res = img_as_ubyte((dec_img - np.min(dec_img)) / (np.max(dec_img) - np.min(dec_img)))
             images.append(res)
     except:

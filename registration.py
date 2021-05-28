@@ -13,7 +13,7 @@ from skimage import img_as_ubyte, img_as_float
 from skimage import io
 
 
-def registration_gui(files, progress_bar_info):
+def registration_gui(files, additional_channel, progress_bar_info):
     progress_step = 100 / (len(files))
     progress_bar_info[0]['value'] = 0
     progress_bar_info[1].config(text="0")
@@ -26,6 +26,7 @@ def registration_gui(files, progress_bar_info):
         reg_instance1 = StackReg(StackReg.AFFINE)
         reg_instance1.register(ref_image, offset_image)
         corrected_image = reg_instance1.transform(offset_image)
+        additional_channel[i] = reg_instance1.transform(additional_channel[i])
         corrected_image = img_as_ubyte(
             (corrected_image - np.min(corrected_image)) / (np.max(corrected_image) - np.min(corrected_image)))
         result_img_stack.append(corrected_image)

@@ -25,5 +25,5 @@ def sko():
 orig_vid = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/Test Video/5.gif"
 unweighted = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/Автоматизация/Невзвешенное комплексирование/3. комплексирование " \
              "изображений/5.png"
-weighted = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/_RESULTS/15.png"
+weighted = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/_RESULTS/10.png"
 sko()

@@ -26,6 +26,6 @@ video_name = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/Автомати�
 video = imageio.get_reader(video_name)
 image_sequence()
 
-automated_expansion.expansion(10)
+automated_expansion.expansion(2)
 automated_registration.registration()
 automated_fusing.restoration()

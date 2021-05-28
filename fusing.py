@@ -9,6 +9,7 @@ from tqdm import tqdm
 import numpy as np
 from skimage import img_as_ubyte, img_as_float
 from skimage.color import rgb2gray
+from math import sqrt, fabs
 from skimage import io
 
 
@@ -24,15 +25,17 @@ def fusing_gui(files, additional_channel, progress_bar_info):
             b = 0
             for m in range(1, len(files)):
                 offset_img = img_as_ubyte(rgb2gray(files[m]))
-                disp_err = additional_channel[m][i][j]
+                disp_err = sqrt(fabs(additional_channel[m][i][j]))
                 if disp_err != 0:
                     a += offset_img[i][j] / disp_err
                     b += 1 / disp_err
                 else:
-                    a += offset_img[i][j] / 0.0000000001
-                    b += 1 / 0.0000000001
+                    a += sqrt(offset_img[i][j])
+                    b += sqrt(disp_err)
             try:
                 c = a / b
+                if c > 255 or c < 0:
+                    c = files[0][i][j]
             except:
                 c = files[0][i][j]
             pixel_matrix[i][j] = c

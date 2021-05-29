@@ -23,15 +23,15 @@ def fusing_gui(files, additional_channel, progress_bar_info):
         for j in range(0, files[0].shape[1]):
             a = 0
             b = 0
-            for m in range(1, len(files)):
+            for m in range(0, len(files)):
                 offset_img = img_as_ubyte(rgb2gray(files[m]))
-                disp_err = sqrt(fabs(additional_channel[m][i][j]))
+                disp_err = additional_channel[m][i][j]
                 if disp_err != 0:
                     a += offset_img[i][j] / disp_err
                     b += 1 / disp_err
                 else:
-                    a += sqrt(offset_img[i][j])
-                    b += sqrt(disp_err)
+                    a += offset_img[i][j] / 1
+                    b += 1 / 1
             try:
                 c = a / b
                 if c > 255 or c < 0:

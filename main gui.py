@@ -206,7 +206,7 @@ def algorithm(images, expand_by, filtration_mode, progress_bar_info):
     progress_label_stage['text'] = "ЭТАП 3/5"
     additional_channel = new_channel.additional_channel_gui(images, expand_by, progress_bar_info)
     progress_label_stage['text'] = "ЭТАП 4/5"
-    images = registration.registration_gui(images, additional_channel, progress_bar_info)
+    images, additional_channel = registration.registration_gui(images, additional_channel, progress_bar_info)
     progress_label_stage['text'] = "ЭТАП 5/5"
     result_image = fusing.fusing_gui(images, additional_channel, progress_bar_info)
     return result_image

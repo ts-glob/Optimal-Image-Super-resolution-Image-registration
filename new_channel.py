@@ -104,7 +104,7 @@ def additional_channel_gui(files, expand_by, progress_bar_info):
     rho = 0.9
     A = (-log(rho)) / T
     for i in range(0, len(files)):
-        Dx = np.var(img_as_float(rgb2gray(files[i])))
+        Dx = np.var(img_as_ubyte(rgb2gray(files[i])))
         for a in range(0, L):
             for b in range(0, L):
                 lil_array[i][a][b] = 2 * Dx * A * (a + b - ((a * a) / T) - ((b * b) / T))

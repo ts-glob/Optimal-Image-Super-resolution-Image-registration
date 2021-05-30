@@ -70,7 +70,7 @@ def btn_search_click():
     """
     global media_label
     global video
-    root.filename = filedialog.askopenfilename(initialdir="Test Video/", title='Выберите видео файл',
+    root.filename = filedialog.askopenfilename(title='Выберите видео файл',
                                                filetypes=(("Видео файлы", "*.mp4 .wmv .avi .gif"),
                                                           ("Все файлы", "*.*")))
     field_choose_filename.delete(0, END)

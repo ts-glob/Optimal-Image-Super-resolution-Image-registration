@@ -1,31 +1,25 @@
-import os
 import automated_expansion
 import automated_registration
 import automated_fusing
-from skimage import io
 import imageio
 
 
 def image_sequence():
-    from skimage.color import rgb2gray
-    from skimage import img_as_ubyte
-    start_path = "0. оригинал/"
-    if not os.path.exists(start_path): os.makedirs(start_path)
     try:
-        i = 0
         while 1:
-            img = img_as_ubyte(rgb2gray(video.get_next_data()))
-            io.imsave(start_path + str(i) + ".jpg", img)
-            i += 1
+            images.append(video.get_next_data())
     except:
         pass
 
 
+expand_by = '10'
+file_num = '5'
 video_name = "D:/my docs/stud/_ДИПЛОМНАЯ РАБОТА/Автоматизация/Невзвешенное комплексирование/" \
-             "искаженная последовательность/5.gif"
+             "искаженная последовательность/уменьшение в " + expand_by + " раз/" + file_num + ".gif"
+pathOut = "невзвешенное комплексирование/восстановление в " + expand_by + " раз/"
+images = []
 video = imageio.get_reader(video_name)
 image_sequence()
-
-automated_expansion.expansion(2)
-automated_registration.registration()
-automated_fusing.restoration()
+images = automated_expansion.expansion(images, "D:\\my docs\\stud\\_ДИПЛОМНАЯ РАБОТА\\Test Video\\" + file_num + ".gif")
+images = automated_registration.registration(images)
+automated_fusing.restoration(images, pathOut)

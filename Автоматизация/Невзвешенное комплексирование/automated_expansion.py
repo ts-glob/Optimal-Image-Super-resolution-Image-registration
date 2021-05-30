@@ -1,21 +1,16 @@
-import os
-from os import listdir
-from os.path import isfile, join
 from tqdm import tqdm
 import cv2
-from skimage import io
-from skimage import img_as_ubyte
-from skimage.color import rgb2gray
+import imageio
 
 
-def expansion(expand_by):
-    pathIn = "0. оригинал/"
-    pathOut = "1. увеличение размерности/"
-    files = [f for f in listdir(pathIn) if isfile(join(pathIn, f))]
-    if not os.path.exists(pathOut): os.makedirs(pathOut)
-    for i in tqdm(range(0, len(files)), desc="Увеличение размерности: "):
-        original_img = img_as_ubyte(rgb2gray(io.imread(join(pathIn, files[i]))))
-        rows = len(original_img)
-        columns = len(original_img[0])
-        expanded_img = cv2.resize(original_img, (columns * expand_by, rows * expand_by))
-        io.imsave(pathOut + files[i], expanded_img)
+def expansion(images, video_name):
+    expanded_images = []
+    video = imageio.get_reader(video_name)
+    original_img = video.get_next_data()
+    rows = len(original_img)
+    columns = len(original_img[0])
+    for i in tqdm(range(0, len(images)), desc="Увеличение размерности: "):
+        warped_img = images[i]
+        warped_img = cv2.resize(warped_img, (columns, rows))
+        expanded_images.append(warped_img)
+    return expanded_images

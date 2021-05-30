@@ -1,26 +1,14 @@
-import os
-from os import listdir
-from os.path import isfile, join
 from tqdm import tqdm
-import numpy as np
 from pystackreg import StackReg
-from skimage import io
-from skimage.color import rgb2gray
-from skimage import img_as_ubyte
 
 
-def registration():
-    pathIn = "1. увеличение размерности/"
-    pathOut = "2. согласования/"
-    files = [f for f in listdir(pathIn) if isfile(join(pathIn, f))]
-    if not os.path.exists(pathOut): os.makedirs(pathOut)
-
-    ref_image = img_as_ubyte(rgb2gray(io.imread(join(pathIn, files[0]))))  # задаём эталон
-    io.imsave(pathOut + files[0], img_as_ubyte(ref_image))  # сохранить первый файл
-    for i in tqdm(range(1, len(files)), desc="Согласование: "):
-        offset_image = img_as_ubyte(rgb2gray(io.imread(join(pathIn, files[i]))))
+def registration(images):
+    registered_images = []
+    ref_image = images[0]  # задаём эталон
+    registered_images.append(ref_image)
+    for i in tqdm(range(1, len(images)), desc="Согласование: "):
+        offset_image = images[i]
         reg_instance = StackReg(StackReg.AFFINE)
-        corrected_image = reg_instance.register_transform(ref_image, offset_image)
-        corrected_image = img_as_ubyte(
-            (corrected_image - np.min(corrected_image)) / (np.max(corrected_image) - np.min(corrected_image)))
-        io.imsave(pathOut + files[i], corrected_image)
+        offset_image = reg_instance.register_transform(ref_image, offset_image)
+        registered_images.append(offset_image)
+    return registered_images

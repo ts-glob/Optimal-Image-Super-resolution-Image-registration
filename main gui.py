@@ -155,8 +155,8 @@ def instructions():
                   "для хранения результатов. Для получения корректного результата алгоритма сверхразрешения \n" \
                   "необходимо выполнить следующие шаги: \n\n" \
                   "1. Выберите видео/анимированное изображение. \n" \
+                  " В окне должна отобразиться анимация. \n" \
                   "2. Задайте желаемое увеличение. Исходное видео/анимация будет увеличено во столько раз, сколько будет задано. \n" \
-                  "    Рекомендуется не увеличивать кадры разрешением более 1000 x 1000. \n" \
                   "3. Задайте способ предобработки. В качестве предобработки используются методы фильтрации изображений. \n" \
                   "\t а) фильтр винера; \n" \
                   "\t б) фильтр гаусса; \n" \
@@ -165,8 +165,7 @@ def instructions():
                   "\t д) повышение резкости; \n" \
                   "\t е) уменьшение шума; \n" \
                   "\t ж) вейвлет-шумоподавление; \n" \
-                  "\t Возможна работа без предобработки." \
-                  "Если всё успешно выполнено, что отобразится анимация файла. \n" \
+                  "\t Возможна работа без предобработки.\n" \
                   "4. Нажмите на кнопку \"ПРИМЕНИТЬ СВЕРХРАЗРЕШЕНИЕ\". Дождитесь обработки. \n" \
                   "\t а) первый этап соответствует предобработке; \n" \
                   "\t б) второй - увеличению; \n" \
@@ -189,16 +188,6 @@ def algorithm(images, expand_by, filtration_mode, progress_bar_info):
     import new_channel
     import registration
     import fusing
-    # progress_label_stage['text'] = "ЭТАП 1/5"
-    # images = filtration.filtration_gui_main(images, filtration_mode, progress_bar_info)
-    # progress_label_stage['text'] = "ЭТАП 2/5"
-    # images = expansion.expansion_gui(images, expand_by, progress_bar_info)
-    # progress_label_stage['text'] = "ЭТАП 3/5"
-    # images = registration.registration_gui(images, progress_bar_info)
-    # progress_label_stage['text'] = "ЭТАП 4/5"
-    # additional_channel = new_channel.additional_channel_gui(images, expand_by, progress_bar_info)
-    # progress_label_stage['text'] = "ЭТАП 5/5"
-    # result_image = fusing.fusing_gui(images, additional_channel, progress_bar_info)
     progress_label_stage['text'] = "ЭТАП 1/5"
     images = filtration.filtration_gui_main(images, filtration_mode, progress_bar_info)
     progress_label_stage['text'] = "ЭТАП 2/5"
